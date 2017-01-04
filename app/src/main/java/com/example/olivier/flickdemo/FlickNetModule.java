@@ -7,7 +7,9 @@ import javax.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
@@ -25,13 +27,20 @@ public class FlickNetModule {
 
   @Singleton
   @Provides OkHttpClient provideOkHttpClient(final OkHttpOAuthConsumer consumer) {
-    return new OkHttpClient.Builder().build();
+    HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+    logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+    return new OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build();
   }
 
   @Singleton
   @Provides Retrofit provideRetrofit(final OkHttpClient client) {
     return new Retrofit.Builder()
         .baseUrl("https://api.flickr.com/services/rest/")
+
+        .addConverterFactory(JacksonConverterFactory.create())
         .client(client)
         .build();
   }

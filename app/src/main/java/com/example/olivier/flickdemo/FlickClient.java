@@ -11,7 +11,6 @@ import retrofit2.http.QueryMap;
  */
 public interface FlickClient {
 
-  @GET("?method=flickr.interestingness.getList&format=json&nojsoncallback=1") Call<FlickResponse> interesting(@QueryMap
-  Map<String, String> params);
+  @GET("?method=flickr.interestingness.getList&api_key=cc46091d1ed44d14e3a937a28907154f&format=json&nojsoncallback=1") Call<FlickResponse> interesting();
 
 }

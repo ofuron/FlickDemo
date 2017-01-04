@@ -16,4 +16,8 @@ public class FlickrApplication extends Application {
         .flickNetModule(new FlickNetModule())
         .build();
   }
+
+  public AppComponent getAppComponent() {
+    return mAppComponent;
+  }
 }

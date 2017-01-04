@@ -6,15 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.google.auto.value.AutoValue;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @AutoValue
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(builder = AutoValue_FlickResponse.Builder.class)
-public abstract class FlickResponse implements Serializable {
+@JsonDeserialize(builder = AutoValue_FlickPhoto.Builder.class)
+public abstract class FlickPhoto implements Serializable{
 
-  public abstract FlickPhotos photos();
+  public abstract String id();
+
+  public abstract String secret();
+
+  public abstract String farm();
+
+  public abstract String server();
 
   @AutoValue.Builder
   @JsonPOJOBuilder(withPrefix = "")
@@ -22,13 +28,15 @@ public abstract class FlickResponse implements Serializable {
   @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
   public static abstract class Builder {
 
-    public abstract Builder photos(FlickPhotos photos);
+    public abstract Builder id(String id);
 
-    public abstract FlickResponse build();
+    public abstract Builder secret(String secret);
+
+    public abstract Builder farm(String farm);
+
+    public abstract Builder server(String server);
+
+    public abstract FlickPhoto build();
   }
 
-  public static Builder builder() {
-    return new AutoValue_FlickResponse.Builder();
-  }
 }
-
